@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="LinkPost">
+        <meta name="author" content="@ech0Server">
+
+        <link rel="icon" href="favicon.ico">
+
+        <title>Signin Template for Bootstrap</title>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+            crossorigin="anonymous">
+        <link href="css/signin.css" rel="stylesheet">
+    </head>
+
+    <body>
+        <div class="container">
+            <form class="form-signin" id="examenForm">
+                <h2 class="form-signin-heading">Ingresa los datos</h2>
+                <label for="Alumno" class="sr-only">ID Alumno</label>
+                <input type="number" id="Alumno" name="Alumno" class="form-control" placeholder="ID del Alumno" required autofocus>
+                <label for="Link" class="sr-only">Link</label>
+                <input type="url" id="Link" name="Link" class="form-control" placeholder="Dropbox link" required>
+                <div><label></label></div>
+                <button class="btn btn-lg btn-primary btn-block" type="button" aria-expanded="false" id="enviarExamen">Enviar Examen</button>
+                <div><label></label></div>
+                <div class="alert alert-warning alert-dismissible fade hide" role="alert" id="alert">
+                    <div id="text"></div>
+                    <button type="button" class="close" aria-label="Close" id="alertClose">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                </div>
+            </form>
+        </div>
+        <!-- /container -->
+
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+            crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+            crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+            crossorigin="anonymous"></script>
+
+        <script>
+            $(document).ready(function () {
+                $("#enviarExamen").click(function () {
+                    $("#alert").removeAttr("class");
+                    $("#alert").attr("class", "alert alert-warning alert-dismissible fade show");
+                    console.log("forma!!");
+                    console.log($("#examenForm").serialize());
+                    $.post("/send", $("#examenForm").serialize(), function (data) {
+                        $("#text").text(data.message);
+                    });
+                });
+
+                $("#alertClose").click(function () {
+                    $("#alert").removeAttr("class");
+                    $("#alert").attr("class", "alert alert-warning alert-dismissible fade hide");
+                });
+            });
+        </script>
+    </body>
+
+</html>
